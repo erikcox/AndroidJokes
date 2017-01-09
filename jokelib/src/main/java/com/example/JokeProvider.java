@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class JokeProvider
 {
+    // Array of jokes
     private static final String[] jokes = {"Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25!",
             "\"Knock, knock.\" \"Who’s there?\" <very long pause….> \"Java.\"",
             "A SQL query goes into a bar, walks up to two tables and asks, \"Can I join you?\"",
@@ -12,6 +13,7 @@ public class JokeProvider
             "Unix is user friendly. It's just very particular about who its friends are."
     };
 
+    // Method to return a random joke from the jokes array
     public static String getJoke(){
         int size = jokes.length;
 
