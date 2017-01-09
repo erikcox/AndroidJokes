@@ -6,3 +6,6 @@
 /build
 /captures
 /.idea/vcs.xml
+/backend/build/classes/endpointsSrc/com/joke/endpoint/backend/myApi/MyApi.class
+/backend/build/classes/endpointsSrc/com/joke/endpoint/backend/myApi/model/MyBean.class
+/backend/build/classes/endpointsSrc/com/joke/endpoint/backend/myApi/MyApi$GetJoke.class
