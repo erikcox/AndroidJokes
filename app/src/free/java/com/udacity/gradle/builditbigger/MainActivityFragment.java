@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import rocks.ecox.jokeactivity.JokeActivity.JokeActivity;
 
 public class MainActivityFragment extends Fragment implements OnTaskCompleted{
+    InterstitialAd mInterstitialAd;
     Button mJokeButton;
 
     public MainActivityFragment() {
@@ -35,10 +38,30 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
                 .build();
         mAdView.loadAd(adRequest);
 
+        // Instantiate the InterstitialAd object
+        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        // Create the AdListener
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                loadData();
+            }
+        });
+
+        requestNewInterstitial();
+
         mJokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData();
+                // Display the interstitial ad
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    loadData();
+                }
             }
         });
 
@@ -56,5 +79,17 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
 
         intent.putExtra(JokeActivity.JOKE_KEY, result);
         startActivity(intent);
+    }
+
+    // Request new interstitial
+    private void requestNewInterstitial() {
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 }
