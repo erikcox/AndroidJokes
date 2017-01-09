@@ -3,6 +3,7 @@ import android.util.Log;
 
 import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
 import com.udacity.gradle.builditbigger.MainActivity;
+import com.udacity.gradle.builditbigger.OnTaskCompleted;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ public class EndpointsAsyncTaskTest {
     public void testDoInBackground() throws Exception{
         try {
             MainActivity mainActivity = new MainActivity();
-            EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(mainActivity);
+            EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask((OnTaskCompleted) mainActivity);
             endpointsAsyncTask.execute();
             String result = endpointsAsyncTask.get(30, TimeUnit.SECONDS);
 
