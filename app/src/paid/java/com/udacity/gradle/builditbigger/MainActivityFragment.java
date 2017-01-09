@@ -12,6 +12,7 @@ import rocks.ecox.jokeactivity.JokeActivity.JokeActivity;
 
 public class MainActivityFragment extends Fragment implements OnTaskCompleted{
     Button mJokeButton;
+    ProgressBar mProgressBar;
 
     public MainActivityFragment() {
     }
@@ -24,6 +25,8 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
 
         mJokeButton = (Button) root.findViewById(R.id.btn_joke);
 
+        mProgressBar = (ProgressBar) root.findViewById(R.id.progressBar);
+
         mJokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +38,8 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
     }
 
     public void loadData() {
+        mProgressBar.setVisibility(View.VISIBLE);
+
         EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
         endpointsAsyncTask.execute();
     }
@@ -42,8 +47,10 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
     @Override
     public void onTaskCompleted(String result) {
         Intent intent = new Intent(getActivity(), JokeActivity.class);
-
         intent.putExtra(JokeActivity.JOKE_KEY, result);
+
+        mProgressBar.setVisibility(View.GONE);
+
         startActivity(intent);
     }
 }
