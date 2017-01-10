@@ -29,6 +29,7 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View root = inflater.inflate(R.layout.fragment_main, container, false);
         Button mJokeButton = (Button) root.findViewById(R.id.btn_joke);
 
         mProgressBar = (ProgressBar) root.findViewById(R.id.progressBar);
