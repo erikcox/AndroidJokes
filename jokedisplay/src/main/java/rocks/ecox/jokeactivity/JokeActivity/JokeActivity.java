@@ -7,9 +7,10 @@ import android.widget.TextView;
 
 import rocks.ecox.jokeactivity.R;
 
+// Activity in Android library that displays a joke
 public class JokeActivity extends AppCompatActivity {
 
-    public static String JOKE_KEY = "Joke key";
+    final public static String JOKE_KEY = "Joke key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

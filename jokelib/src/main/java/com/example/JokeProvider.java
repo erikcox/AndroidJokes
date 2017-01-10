@@ -2,8 +2,7 @@ package com.example;
 
 import java.util.Random;
 
-public class JokeProvider
-{
+public class JokeProvider {
     // Array of jokes
     private static final String[] jokes = {"Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25!",
             "\"Knock, knock.\" \"Who’s there?\" <very long pause….> \"Java.\"",
@@ -14,7 +13,7 @@ public class JokeProvider
     };
 
     // Method to return a random joke from the jokes array
-    public static String getJoke(){
+    public static String getJoke() {
         int size = jokes.length;
 
         Random r = new Random();

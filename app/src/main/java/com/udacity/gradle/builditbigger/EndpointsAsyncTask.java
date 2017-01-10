@@ -11,7 +11,7 @@ import java.io.IOException;
 // AsyncTask for getting jokes from GCE
 public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
     private static MyApi myApiService = null;
-    private OnTaskCompleted mListener;
+    final private OnTaskCompleted mListener;
 
     public EndpointsAsyncTask (OnTaskCompleted listener) {
         this.mListener = listener;

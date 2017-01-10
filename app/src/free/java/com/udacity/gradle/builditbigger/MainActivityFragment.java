@@ -17,11 +17,10 @@ import com.google.android.gms.ads.InterstitialAd;
 import rocks.ecox.jokeactivity.JokeActivity.JokeActivity;
 
 public class MainActivityFragment extends Fragment implements OnTaskCompleted{
-    InterstitialAd mInterstitialAd;
-    Button mJokeButton;
-    ProgressBar mProgressBar;
-    String mResult;
-    Boolean mAdsOnScreen;
+    private InterstitialAd mInterstitialAd;
+    private ProgressBar mProgressBar;
+    private String mResult;
+    private Boolean mAdsOnScreen;
 
     public MainActivityFragment() {
     }
@@ -30,8 +29,8 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
-        mJokeButton = (Button) root.findViewById(R.id.btn_joke);
+        Button mJokeButton = (Button) root.findViewById(R.id.btn_joke);
+
         mProgressBar = (ProgressBar) root.findViewById(R.id.progressBar);
 
         // Set up ads
@@ -42,7 +41,7 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
                 .build();
         mAdView.loadAd(adRequest);
 
-        // Set up the InterstitialAd object
+        // Create InterstitialAd object
         mInterstitialAd = new InterstitialAd(getContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
@@ -77,8 +76,7 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
         return root;
     }
 
-    // Create AsyncTask to load jokes from GCE
-    public void loadData() {
+    private void loadData() {
         mResult = null;
         EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
         endpointsAsyncTask.execute();
