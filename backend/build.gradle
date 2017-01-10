@@ -39,7 +39,6 @@ appengine {
         getDiscoveryDocsOnBuild = true
     }
 
-    // options for running against local devappserver
-    // set to test on a physical device with a local development server
+    // Setting for running against local devappserver
     // httpAddress = "0.0.0.0"
 }

@@ -17,11 +17,10 @@ import com.google.android.gms.ads.InterstitialAd;
 import rocks.ecox.jokeactivity.JokeActivity.JokeActivity;
 
 public class MainActivityFragment extends Fragment implements OnTaskCompleted{
-    InterstitialAd mInterstitialAd;
-    Button mJokeButton;
-    ProgressBar mProgressBar;
-    String mResult;
-    Boolean mAdsOnScreen;
+    private InterstitialAd mInterstitialAd;
+    private ProgressBar mProgressBar;
+    private String mResult;
+    private Boolean mAdsOnScreen;
 
     public MainActivityFragment() {
     }
@@ -31,24 +30,22 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mJokeButton = (Button) root.findViewById(R.id.btn_joke);
+        Button mJokeButton = (Button) root.findViewById(R.id.btn_joke);
 
         mProgressBar = (ProgressBar) root.findViewById(R.id.progressBar);
 
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        // Create an ad request
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
 
-        // Instantiate the InterstitialAd object
+        // Create InterstitialAd object
         mInterstitialAd = new InterstitialAd(getContext());
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        // Create the AdListener
+        // Create AdListener
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
@@ -79,7 +76,7 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
         return root;
     }
 
-    public void loadData() {
+    private void loadData() {
         mResult = null;
         EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
         endpointsAsyncTask.execute();
@@ -91,20 +88,15 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
         launchActivity();
     }
 
-    // Call three times :
-    // - when the user click (-> progressBar or nothing)
-    // - when the data is loaded (-> intent or nothing)
-    // - when the ads is closed (-> intent or progressBar)
     public void launchActivity() {
         // No ads currently displayed
         if (!mAdsOnScreen){
-            // Data is ready
+
             if (mResult != null) {
                 Intent intent = new Intent(getActivity(), JokeActivity.class);
                 intent.putExtra(JokeActivity.JOKE_KEY, mResult);
                 mProgressBar.setVisibility(View.GONE);
                 startActivity(intent);
-                // AsyncTask is not finish
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
             }
@@ -113,9 +105,7 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
 
     // Request new interstitial
     private void requestNewInterstitial() {
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        // Create an ad request
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
