@@ -21,14 +21,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks
         int id = item.getItemId();
 
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
-
     }
 
 }

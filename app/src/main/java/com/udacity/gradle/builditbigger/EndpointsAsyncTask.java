@@ -19,7 +19,7 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 
     // Grabs a joke in a background task
     @Override
-    protected String doInBackground(Void... params){
+    protected String doInBackground(Void... params) {
         if(myApiService == null) {
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     // Local testing url (emulator is 10.0.2.2 or use local machine ip)
@@ -29,6 +29,7 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
             myApiService = builder.build();
         }
 
+        // Grab a joke
         try {
             return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
