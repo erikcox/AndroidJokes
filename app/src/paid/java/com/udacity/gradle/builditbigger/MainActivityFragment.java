@@ -23,11 +23,10 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
                              Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-
         mJokeButton = (Button) root.findViewById(R.id.btn_joke);
-
         mProgressBar = (ProgressBar) root.findViewById(R.id.progressBar);
 
+        // Create listener for fetching jokes from GCE
         mJokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,17 +38,21 @@ public class MainActivityFragment extends Fragment implements OnTaskCompleted{
     }
 
     public void loadData() {
+        // Display the loading bar
         mProgressBar.setVisibility(View.VISIBLE);
 
+        // Create a new AsyncTask to fetch a joke from GCE
         EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(this);
         endpointsAsyncTask.execute();
     }
 
     @Override
     public void onTaskCompleted(String result) {
+        // Pass the joke in an Intent
         Intent intent = new Intent(getActivity(), JokeActivity.class);
         intent.putExtra(JokeActivity.JOKE_KEY, result);
 
+        // Hide the progress bar
         mProgressBar.setVisibility(View.GONE);
 
         startActivity(intent);
